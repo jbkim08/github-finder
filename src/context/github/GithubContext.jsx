@@ -13,21 +13,26 @@ export const GithubProvider = ({ children }) => {
   };
   const [state, dispatch] = useReducer(githubReducer, initialState);
 
-  /*
-  const fetchUsers = async () => {
+  const searchUsers = async (text) => {
     setLoading(); //로딩상태 true
-    const response = await fetch(`${GITHUB_URL}/users`, {
+
+    //url주소에 쿼리스트링을 만듬(q=text)
+    const params = new URLSearchParams({
+      q: text,
+    });
+
+    const response = await fetch(`${GITHUB_URL}/search/users?${params}`, {
       headers: {
         Authorization: `token ${GITHUB_TOKEN}`,
       },
     });
     const data = await response.json();
-
+    //console.log(data);
     dispatch({
       type: 'GET_USERS',
-      payload: data,
+      payload: data.items,
     });
-  }; */
+  };
 
   const setLoading = () =>
     dispatch({
@@ -39,7 +44,7 @@ export const GithubProvider = ({ children }) => {
       value={{
         users: state.users,
         loading: state.loading,
-        fetchUsers,
+        searchUsers,
       }}
     >
       {children}
