@@ -4,11 +4,7 @@ import UserItem from './UserItem';
 import GithubContext from '../../context/github/GithubContext';
 
 function UserResults() {
-  const { users, loading, fetchUsers } = useContext(GithubContext);
-
-  useEffect(() => {
-    fetchUsers();
-  }, []); //앱 시작시 실행됨
+  const { users, loading } = useContext(GithubContext);
 
   if (!loading) {
     return (
