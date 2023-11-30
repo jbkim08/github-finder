@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react';
+import Spinner from '../layout/Spinner';
 
 function UserResults() {
   const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(true); //시작시 깃허브에서 데이터를 가져옴(작업중 true)
 
   useEffect(() => {
     fetchUsers();
@@ -17,14 +19,20 @@ function UserResults() {
     const data = await response.json();
 
     setUsers(data);
+    setLoading(false); //데이터 로딩 완료
   };
-  return (
-    <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-      {users.map((user) => (
-        <h3>{user.login}</h3>
-      ))}
-    </div>
-  );
+
+  if (!loading) {
+    return (
+      <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        {users.map((user) => (
+          <h3 key={user.id}>{user.login}</h3>
+        ))}
+      </div>
+    );
+  } else {
+    return <Spinner />;
+  }
 }
 
 export default UserResults;
