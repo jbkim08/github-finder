@@ -26,11 +26,11 @@ export const GithubProvider = ({ children }) => {
         Authorization: `token ${GITHUB_TOKEN}`,
       },
     });
-    const data = await response.json();
+    const { items } = await response.json();
     //console.log(data);
     dispatch({
       type: 'GET_USERS',
-      payload: data.items,
+      payload: items,
     });
   };
 
