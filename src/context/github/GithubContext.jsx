@@ -13,6 +13,7 @@ export const GithubProvider = ({ children }) => {
   };
   const [state, dispatch] = useReducer(githubReducer, initialState);
 
+  /*
   const fetchUsers = async () => {
     setLoading(); //로딩상태 true
     const response = await fetch(`${GITHUB_URL}/users`, {
@@ -26,7 +27,7 @@ export const GithubProvider = ({ children }) => {
       type: 'GET_USERS',
       payload: data,
     });
-  };
+  }; */
 
   const setLoading = () =>
     dispatch({
