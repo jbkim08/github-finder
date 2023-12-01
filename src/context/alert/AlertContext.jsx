@@ -1,5 +1,5 @@
 import { createContext, useReducer } from 'react';
-import AlertReducer from './AlertReducer';
+import AlertReducer from './AlertReducer.js';
 
 const AlertContext = createContext();
 
@@ -8,7 +8,7 @@ export const AlertProvider = ({ children }) => {
   const [state, dispatch] = useReducer(AlertReducer, null);
 
   //경고창 메세지 설정후 3초후 제거
-  const setAert = (msg, type) => {
+  const setAlert = (msg, type) => {
     dispatch({
       type: 'SET_ALERT',
       payload: {
@@ -19,7 +19,9 @@ export const AlertProvider = ({ children }) => {
     setTimeout(() => dispatch({ type: 'REMOVE_ALERT' }), 3000);
   };
 
-  return <AlertContext.Provider value={{ state, setAert }}>{children}</AlertContext.Provider>;
+  return (
+    <AlertContext.Provider value={{ alert: state, setAlert }}>{children}</AlertContext.Provider>
+  );
 };
 
 export default AlertContext;
