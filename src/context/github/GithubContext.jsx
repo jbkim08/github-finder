@@ -38,7 +38,7 @@ export const GithubProvider = ({ children }) => {
   const getUser = async (login) => {
     setLoading(); //로딩상태 true
 
-    const response = await fetch(`${GITHUB_URL}/users?${login}`, {
+    const response = await fetch(`${GITHUB_URL}/users/${login}`, {
       headers: {
         Authorization: `token ${GITHUB_TOKEN}`,
       },
