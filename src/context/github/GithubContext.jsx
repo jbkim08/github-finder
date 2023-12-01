@@ -60,7 +60,13 @@ export const GithubProvider = ({ children }) => {
   const getUserRepos = async (login) => {
     setLoading(); //로딩상태 true
 
-    const response = await fetch(`${GITHUB_URL}/users/${login}/repos`, {
+    //최근 생성한 10개의 리포를 가져오도록 설정
+    const params = new URLSearchParams({
+      sort: 'created',
+      per_page: 10,
+    });
+
+    const response = await fetch(`${GITHUB_URL}/users/${login}/repos?${params}`, {
       headers: {
         Authorization: `token ${GITHUB_TOKEN}`,
       },
