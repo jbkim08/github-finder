@@ -4,7 +4,7 @@ import GithubContext from "../../context/github/GithubContext";
 function UserSearch() {
   const [text, setText] = useState("");
 
-  const { users } = useContext(GithubContext);
+  const { searchUsers } = useContext(GithubContext);
 
   const handleChange = (e) => {
     setText(e.target.value);
@@ -16,7 +16,7 @@ function UserSearch() {
       alert("내용을 입력해주세요");
     } else {
       //유저찾기
-      console.log(text);
+      searchUsers(text);
       setText("");
     }
   };
