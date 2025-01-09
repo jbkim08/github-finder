@@ -43,11 +43,17 @@ export const GithubProvider = ({ children }) => {
         setLoading(false); //로딩완료!
       })
       .catch((err) => (window.location = "/notfound"));
+
+    getUserRepos(login);
   };
   //유저 공개리포 리스트
   const getUserRepos = (login) => {
     setLoading(true);
-    fetch(`${GITHUB_URL}/users/${login}/repos`, {
+    const params = new URLSearchParams({
+      sort: "created",
+      per_page: 10,
+    });
+    fetch(`${GITHUB_URL}/users/${login}/repos?${params}`, {
       headers: {
         Authorization: `Bearer ${GITHUB_TOKEN}`,
       },
@@ -69,7 +75,6 @@ export const GithubProvider = ({ children }) => {
         searchUsers,
         getUser,
         clearUsers,
-        getUserRepos,
       }}
     >
       {children}
